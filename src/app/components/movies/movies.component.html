@@ -1,0 +1,70 @@
+<div class="card-body">
+    <h5 class="card-title">Search</h5>
+    <input type="text" [(ngModel)]="searchQuery">
+    <button (click)="[searchMovie(), searchPerson()]">Search</button>
+</div>
+
+
+<div class="row" *ngIf="popularMovies">
+    <h1>Most popular movies of all time:</h1>
+    <h1>Showing top20 out of {{popularMovies.total_results}} results.</h1>
+    <div class="card" *ngFor="let result of popularMovies.results">
+        <div class="card-body-left">
+            <img class="poster" *ngIf="result.poster_path" src="http://image.tmdb.org/t/p/w185//{{result.poster_path}}"
+                alt="{{result.title}}">
+        </div>
+        <div class="card-body-right">
+            <div>
+                <h5 class="card-title">{{result.title}}</h5>
+                <p class="vote">{{result.vote_average}} rating</p>
+                <p class="info">{{result.overview | slice:0:150}}...</p>
+                <!-- <div class="link"><a routerLink="/movies/result.id">Read more</a></div> -->
+                <div class="link"><a routerLink="movie/{{result.id}}">Read more</a></div>
+                
+                <!-- <a routerLink="/movies/550">hej</a> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="movieResponse || actorResponse">
+<p>filter the results:</p>
+<button (click) =showActors() [ngClass]="{'selected': !isShowActors}">Actors</button>
+<button (click) =showMovies() [ngClass]="{'selected': !isShowMovies}">Movies</button>
+</div>
+
+<div class="row" *ngIf="movieResponse" [hidden] ="isShowMovies">
+    <h1>{{movieResponse.total_results}} results for '{{searchQuery}}' in category Movies</h1>
+    <div class="card" *ngFor="let result of movieResponse.results">
+        <div class="card-body-left">
+            <img class="poster" src="" *ngIf="result.poster_path"
+                src="http://image.tmdb.org/t/p/w185//{{result.poster_path}}">
+        </div>
+        <div class="card-body-right">
+            <div>
+                <h5 class="card-title">{{result.title}}</h5>
+                <p class="vote">{{result.vote_average}} rating</p>
+                <p class="info">{{result.overview | slice:0:150}}...</p>
+                <div class="link"><a routerLink="movie/{{result.id}}">Read more</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="actorResponse"[hidden] ="isShowActors">
+    <h1>{{actorResponse.total_results}} results for '{{searchQuery}}' in category Actors</h1>
+    <div class="card" *ngFor="let result of actorResponse.results">
+        <div class="card-body-left" *ngIf="result.profile_path; else imageNotFound">
+            <img class="poster" src="http://image.tmdb.org/t/p/w185//{{result.profile_path}}">
+        </div>
+        <ng-template #imageNotFound><img class="noimage" src="assets/noimage.png"></ng-template>
+        <div class="card-body-right">
+            <h5 class="card-title">{{result.name}}</h5>
+            <p>Most know for:</p>
+            <p class="info">{{result.known_for[0].title}}</p>
+            <p class="info">{{result.known_for[0].name}}</p>
+            <!-- <div class="link"><a routerLink="movie/{{result.id}}">Read more</a></div> -->
+        </div>
+    </div>
+</div>

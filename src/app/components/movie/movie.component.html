@@ -1,0 +1,27 @@
+    <div class="row" *ngIf="movieResponse">
+        
+    
+    <div class="card">
+        <div class="card-body-left">
+            <img class="poster" src="" *ngIf="movieResponse.poster_path"
+                src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{movieResponse.poster_path}}">
+
+                
+        </div>
+        <div class="card-body-right">
+            <div>
+                <h1>{{movieResponse.title}}</h1>
+                <h5 class="card-title">{{movieResponse.tagline}}</h5>
+                <p class="vote">{{movieResponse.vote_average}} rating</p>
+                <p class="info">Budget: {{movieResponse.budget}}$</p>
+                <p class="info">Release date: {{movieResponse.release_date}}</p>
+                <p class="info">{{movieResponse.overview}}</p>
+                
+                <button (click)="goBack()">Go back</button>
+                <button (click)="trailer()">trailer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

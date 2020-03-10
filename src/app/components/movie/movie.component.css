@@ -1,0 +1,76 @@
+.row {
+    display: flex;
+    justify-content: center;   
+}
+
+.card {
+    margin: 10px;
+    padding: 0, auto;
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.poster {
+    padding: 0 auto;
+    text-align: center;
+    /* height: 100%; */
+    width: 100%;
+}
+
+.noimage {
+    padding: 0 auto;
+    text-align: center;
+    width: 200px;
+}
+
+.card-body-left {
+    
+    padding: 0px;
+    width: 40%;
+}
+.card-body-right {
+    background-color: white;
+    /* text-align: center; */
+    padding: 10px;
+    width: 60%;
+    /* text-overflow: ellipsis;
+    overflow: hidden; */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.card-body-right:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+.vote {
+    color: gray;
+    font-size: 20px;
+}
+
+h1 {
+    width: 100%;
+    padding-top: 10px;
+    font-size: 30px;
+}
+
+.info {
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.link {
+    /* background-color: beige; */
+    border-top: 1px solid #e3e3e3;
+    position: absolute;
+    bottom: 0;
+    padding: 5px; 
+    width: 200px;  
+}
+
+.selected {
+    background-color: lightgreen;
+}
