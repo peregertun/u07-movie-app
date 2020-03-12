@@ -1,60 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { MoviesService } from './../../services/movies.service';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-
+import { Component, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { MoviesService } from "../../services/movies.service";
+import { ActivatedRoute } from "@angular/router";
+import { Location } from "@angular/common";
 
 @Component({
-  selector: 'app-movie',
-  templateUrl: './movie.component.html',
-  styleUrls: ['./movie.component.css']
+  selector: "app-movie",
+  templateUrl: "./movie.component.html",
+  styleUrls: ["./movie.component.css"]
 })
 export class MovieComponent implements OnInit {
-  
-  movies: any;
+  private url = "https://api.themoviedb.org/3/movie/";
+  private apiKey: string = "5dec8cabce89ea92e3f95700f52171d5&";
   movieResponse: any;
-  actorResponse: any;
-  searchQuery: string = "";
-  searchQuery2: string = "";
-  popularMovies: any;
+  castResult: any;
   test: string = "";
-  id: string ="";
+  id: string = "";
+  cast: any;
 
   constructor(
-    MovieService: MoviesService, 
     private http: HttpClient,
     private route: ActivatedRoute,
     private location: Location
-    ) { }
-  // constructor(private _Activatedroute:ActivatedRoute) {}
+  ) {}
 
-  // moreInfo(): void{
-  //   console.log(this.test);
-  //   console.log(id);
-  //   this.http.get('https://api.themoviedb.org/3/movie/' + test + '?api_key=5dec8cabce89ea92e3f95700f52171d5&language=en-US') 
-  //   .subscribe((movieResponse) => {
-  //     this.movieResponse = movieResponse;
-      
-  //     console.log(test);
-      
-  //   })
-  // } 
+  moreInfo(): void {
+    this.id = this.route.snapshot.paramMap.get("movieId");
+    this.http
+      .get(
+        "https://api.themoviedb.org/3/movie/" +
+          this.id +
+          "?api_key=" +
+          this.apiKey +
+          "language=en-US"
+      )
+      .subscribe(movieResponse => {
+        this.movieResponse = movieResponse;
+      });
+  
+    this.getCast();
+  }
 
- moreInfo(): void {
-  // const id = +this.route.snapshot.paramMap.get('id');
-  // this.movieService.moreInfo(id)
-  //   .subscribe(hero => this.hero = hero);
-  this.id = this.route.snapshot.paramMap.get("movieId")
-  this.http.get('https://api.themoviedb.org/3/movie/' + this.id + '?api_key=5dec8cabce89ea92e3f95700f52171d5&language=en-US') 
-    .subscribe((movieResponse) => {
-      this.movieResponse = movieResponse;
-      
-  // console.log(movieResponse);
-})
- }
+  getCast(): void {
+    this.http
+      .get(
+        this.url + this.id + "/credits?api_key=" + this.apiKey
+      )
+      .subscribe(castResult => {
+        this.castResult = castResult;
+      });
+  }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.moreInfo();
   }
 
@@ -63,12 +60,15 @@ export class MovieComponent implements OnInit {
   }
 
   trailer(): void {
-    this.http.get('http://api.themoviedb.org/3/movie/' + this.id + '/videos?api_key=5dec8cabce89ea92e3f95700f52171d5') 
-    .subscribe((movieResponse) => {
-      this.movieResponse = movieResponse;
-    console.log(movieResponse);
-
-    // ('https://www.youtube.com/watch?v=' + movieResponse.key) 
-  })
-}
+    this.http
+      .get(
+        "http://api.themoviedb.org/3/movie/" +
+          this.id +
+          "/videos?api_key=" +
+          this.apiKey
+      )
+      .subscribe(movieResponse => {
+        this.movieResponse = movieResponse;
+      });
+  }
 }

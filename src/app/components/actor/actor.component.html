@@ -1,0 +1,23 @@
+<div class="mainDiv">
+    <div class="row" *ngIf="actorResponse">
+
+        <div class="card">
+            <div class="card-body-left" *ngIf="actorResponse.profile_path">
+                <img class="poster"
+                    src="https://image.tmdb.org/t/p/w600_and_h900_bestv2//{{actorResponse.profile_path}}">
+            </div>
+            <div class="card-body-right">
+                <div>
+                    <h1>{{actorResponse.name}}</h1>
+                    <p class="info">{{actorResponse.biography}}</p>
+                    <p class="info">Known for: {{actorResponse.known_for_department}}</p>
+                    <p class="info">Birthday: {{actorResponse.birthday}}</p>
+                    <p class="info">Place of birth: {{actorResponse.place_of_birth}}</p>
+
+                    <button (click)="goBack()">Go back</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
