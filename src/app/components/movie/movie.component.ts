@@ -1,13 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { MoviesService } from "../../services/movies.service";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 
 @Component({
   selector: "app-movie",
   templateUrl: "./movie.component.html",
-  styleUrls: ["./movie.component.css"]
+  styleUrls: ["./movie.component.css"],
 })
 export class MovieComponent implements OnInit {
   private url = "https://api.themoviedb.org/3/movie/";
@@ -34,19 +33,17 @@ export class MovieComponent implements OnInit {
           this.apiKey +
           "language=en-US"
       )
-      .subscribe(movieResponse => {
+      .subscribe((movieResponse) => {
         this.movieResponse = movieResponse;
       });
-  
+
     this.getCast();
   }
 
   getCast(): void {
     this.http
-      .get(
-        this.url + this.id + "/credits?api_key=" + this.apiKey
-      )
-      .subscribe(castResult => {
+      .get(this.url + this.id + "/credits?api_key=" + this.apiKey)
+      .subscribe((castResult) => {
         this.castResult = castResult;
       });
   }
@@ -67,7 +64,7 @@ export class MovieComponent implements OnInit {
           "/videos?api_key=" +
           this.apiKey
       )
-      .subscribe(movieResponse => {
+      .subscribe((movieResponse) => {
         this.movieResponse = movieResponse;
       });
   }
